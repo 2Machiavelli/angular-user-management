@@ -1,6 +1,34 @@
-<div
-  class="app"
+<mat-drawer-container 
+  class="
+    app
+    example-container
+  " 
+  autosize
 >
- Angular User Management App 
-</div>
-<router-outlet></router-outlet>
+  <mat-drawer 
+    #drawer 
+    class="example-sidenav" 
+    mode="side"
+  >
+    <p>
+      Auto-resizing sidenav
+    </p>
+  </mat-drawer>
+
+  <mat-toolbar
+  >
+    <button
+      mat-icon-button
+      type="button" 
+      mat-button 
+      (click)="drawer.toggle()"
+      class="menu__open-btn"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Angular user management</span>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+
+</mat-drawer-container>
