@@ -1,0 +1,39 @@
+table
+  width: 100%
+  
+.user-card__wrap
+  display: grid
+  width: 100%
+  height: calc( 100vh - 64px )
+
+.user-card
+  box-shadow: 2px 7px 22px 13px rgba(0,0,0,0.15)
+  border-radius: 3px
+  padding: 20px 40px
+  justify-self: center
+  align-self: center
+  width: 45%
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+  grid-template-rows: .7fr 1fr
+  grid-row-gap: 20px
+  grid-column-gap: 10px
+  & img
+    border-radius: 2px
+
+.user-card__photo
+  display: grid
+  justify-content: start
+  align-content: center
+  grid-column: 1 / 2
+
+.user-card__name
+  display: grid
+  justify-content: start
+  align-content: center
+  grid-column: 2 / 4
+  font-size: 36px
+
+.user-card__info
+  grid-column: 1 / 6
+  grid-row: 2 / 3
