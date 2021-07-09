@@ -1,12 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from "@angular/core"
 import { Router } from "@angular/router"
 
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.sass']
+  selector: "app-table",
+  templateUrl: "./table.component.html",
+  styleUrls: ["./table.component.sass"]
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   @Input() displayedColumns: any
   @Input() dataSource: any
 
@@ -18,7 +18,4 @@ export class TableComponent implements OnInit {
   openUserCard(user: any): void {
     this.router.navigateByUrl(`users/${user.login.uuid}`)
   }
-
-  ngOnInit(): void {}
-
 }

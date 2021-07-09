@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core"
+import { HttpClient } from "@angular/common/http"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UsersService {
-  displayedColumns: string[] = ['photo', 'name', 'email', 'phone', 'rate'];
+  displayedColumns: string[] = ["photo", "name", "email", "phone", "rate"]
 
   readonly USERS_URL = "https://randomuser.me/api/?page=3&results=10&seed=abc"
 
