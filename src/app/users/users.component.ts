@@ -10,7 +10,7 @@ import { UsersService } from "../users.service"
 export class UsersComponent implements OnInit {
   dataSource: any
   displayedColumns: any
-  users: any
+  users: any = []
 
   readonly USERS_URL = "https://randomuser.me/api/?page=3&results=10&seed=abc"
   

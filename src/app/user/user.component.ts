@@ -16,7 +16,7 @@ export interface UserInfo {
 })
 export class UserComponent implements OnInit {
   UUID: any
-  user: any
+  user: any = {}
   userInfo: any
   displayedColumns: string[] = ["title", "value"]
 
@@ -33,11 +33,11 @@ export class UserComponent implements OnInit {
     this.service.getUsers().subscribe((users: any) => {
       this.user = users.results.filter((user: any) => user.login.uuid === this.UUID)[0]
 
-
+      // Fow what? I can take the data from user var 
       this.userInfo = [
         {title: "Email", value: this.user.email},
         {title: "Phone", value: this.user.phone},
-        {title: "Rating", value: 3},
+        {title: "Rating", value: 0},
       ]
     })
   }
