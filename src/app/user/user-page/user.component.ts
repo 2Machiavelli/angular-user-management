@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core"
 
 import { ActivatedRoute } from "@angular/router"
 
-import { UsersService } from "../users.service"
+import { UsersService } from "../../users.service"
 
 export interface UserInfo {
   title: string

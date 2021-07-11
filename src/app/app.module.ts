@@ -16,6 +16,11 @@ import { MatButtonModule } from "@angular/material/button"
 import { UsersModule } from "./users/users.module"
 import { UserModule } from "./user/user.module"
 
+// Store
+import { NG_ENTITY_SERVICE_CONFIG } from "@datorama/akita-ng-entity-service"
+import { AkitaNgDevtools } from "@datorama/akita-ngdevtools"
+import { AkitaNgRouterStoreModule } from "@datorama/akita-ng-router-store"
+import { environment } from "../environments/environment"
 @NgModule({
   declarations: [
     AppComponent
@@ -30,11 +35,14 @@ import { UserModule } from "./user/user.module"
     MatIconModule,
     MatButtonModule,
     UsersModule,
-    UserModule
+    UserModule,
+    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    AkitaNgRouterStoreModule
   ],
-  providers: [],
+  providers: [{ provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: "https://jsonplaceholder.typicode.com" }}],
   bootstrap: [
     AppComponent
   ]
 })
+
 export class AppModule { }

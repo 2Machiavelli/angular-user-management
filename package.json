@@ -21,6 +21,10 @@
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",
+    "@datorama/akita": "^6.2.0",
+    "@datorama/akita-ng-entity-service": "^6.0.0",
+    "@datorama/akita-ng-router-store": "^6.0.0",
+    "bluebird": "^3.7.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -34,6 +38,7 @@
     "@angular-eslint/template-parser": "12.2.0",
     "@angular/cli": "~12.1.0",
     "@angular/compiler-cli": "~12.1.0",
+    "@datorama/akita-ngdevtools": "^6.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.23.0",

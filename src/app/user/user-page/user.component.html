@@ -1,0 +1,46 @@
+<div class="user-card__wrap">
+  <div class="user-card">
+
+    <div class="user-card__photo">
+      <img 
+        [src]="user.picture.large" 
+        alt="avatar"
+      />
+    </div>
+
+    <div class="user-card__name">
+      {{ user.name.first + " " + user.name.last }}
+    </div>
+
+    <div class="user-card__info">
+
+      <table 
+        mat-table 
+        [dataSource]="userInfo" 
+        class=""
+      >
+      
+        <ng-container matColumnDef="title">
+          <td 
+            mat-cell 
+            *matCellDef="let user"
+          > {{ user.title }} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="value">
+          <td 
+            mat-cell 
+            *matCellDef="let user"
+          > {{ user.value}} </td>
+        </ng-container>
+
+        <tr 
+          mat-row 
+          *matRowDef="let row; columns: displayedColumns; let user;"
+        ></tr>
+      </table>
+
+    </div>
+    
+  </div>
+</div>
