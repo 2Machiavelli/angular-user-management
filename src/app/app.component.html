@@ -1,8 +1,5 @@
 <mat-drawer-container 
-  class="
-    app
-    example-container
-  " 
+  class="app example-container" 
   autosize
 >
   <mat-drawer 
@@ -10,9 +7,7 @@
     class="example-sidenav" 
     mode="side"
   >
-    <p>
-      Auto-resizing sidenav
-    </p>
+    <p> Auto-resizing sidenav </p>
   </mat-drawer>
 
   <mat-toolbar
@@ -24,9 +19,10 @@
       (click)="drawer.toggle()"
       class="menu__open-btn"
     >
-      <mat-icon>menu</mat-icon>
+      <mat-icon> menu </mat-icon>
     </button>
-    <span>Angular user management</span>
+
+    <span> Angular user management </span>
   </mat-toolbar>
 
   <router-outlet></router-outlet>

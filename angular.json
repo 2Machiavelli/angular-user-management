@@ -120,6 +120,6 @@
   },
   "defaultProject": "angular-user-management",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@datorama/akita"
   }
 }
