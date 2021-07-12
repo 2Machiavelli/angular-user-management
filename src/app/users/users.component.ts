@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core"
-
-import { UsersService } from "../users.service"
+import { UsersService } from "../store/users/users.service"
+import { Router } from "@angular/router"
 
 @Component({
   selector: "app-users",
@@ -8,23 +8,23 @@ import { UsersService } from "../users.service"
   styleUrls: ["./users.component.sass"]
 })
 export class UsersComponent implements OnInit {
-  dataSource: any
-  displayedColumns: any
+  displayedColumns: string[] = ["photo", "name", "email", "phone", "rate"]
   users: any = []
-
   readonly USERS_URL = "https://randomuser.me/api/?page=3&results=10&seed=abc"
   
-
   constructor (
-    private service: UsersService
+    private usersService: UsersService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.displayedColumns = this.service.displayedColumns
-
-    this.service.getUsers().subscribe((data: any) => {
+    this.usersService.get().subscribe((data: any) => {
       this.users = data.results
     })
+  }
+
+  openUserCard(user: any): void {
+    this.router.navigateByUrl(`users/${user.login.uuid}`, { state: user })
   }
 
 }

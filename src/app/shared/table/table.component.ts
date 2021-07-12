@@ -1,5 +1,4 @@
-import { Component, Input } from "@angular/core"
-import { Router } from "@angular/router"
+import { Component, Input, Output, EventEmitter } from "@angular/core"
 
 @Component({
   selector: "app-table",
@@ -8,14 +7,14 @@ import { Router } from "@angular/router"
 })
 export class TableComponent {
   @Input() displayedColumns: any
-  @Input() dataSource: any
+  @Input() users: any
+
+  @Output() clickEvent = new EventEmitter()
 
 
-  constructor (
-    private router: Router
-  ) {}
+  constructor () {}
 
-  openUserCard(user: any): void {
-    this.router.navigateByUrl(`users/${user.login.uuid}`)
+  handleClick(user: any) {
+    this.clickEvent.emit(user)
   }
 }
