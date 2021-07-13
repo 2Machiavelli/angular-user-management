@@ -14,7 +14,7 @@ export class TableComponent {
 
   constructor () {}
 
-  handleClick(user: any) {
+  handleClick(user: any): void {
     this.clickEvent.emit(user)
   }
 }

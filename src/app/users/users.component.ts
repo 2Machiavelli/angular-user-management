@@ -8,9 +8,8 @@ import { Router } from "@angular/router"
   styleUrls: ["./users.component.sass"]
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ["photo", "name", "email", "phone", "rate"]
+  displayedColumns: string[] = [ "photo", "name", "email", "phone", "rate" ]
   users: any = []
-  readonly USERS_URL = "https://randomuser.me/api/?page=3&results=10&seed=abc"
   
   constructor (
     private usersService: UsersService,
@@ -23,8 +22,7 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  openUserCard(user: any): void {
-    this.router.navigateByUrl(`users/${user.login.uuid}`, { state: user })
+  navigateToUser(user: any): void {
+    this.router.navigateByUrl(`users/${user.login.uuid}`)
   }
-
 }
