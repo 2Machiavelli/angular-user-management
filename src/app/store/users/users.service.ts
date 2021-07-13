@@ -7,7 +7,8 @@ import { UsersStore } from "./users.store"
 @Injectable({ providedIn: "root" })
 export class UsersService {
 
-  readonly USERS_URL: string = "https://randomuser.me/api/?page=3&results=30&seed=abc"
+  readonly USERS_URL: string = "https://randomuser.me/api/"
+  readonly USERS_URL_QUERY: string = "?results=15&seed=abc"
 
   constructor(
     private usersStore: UsersStore, 
@@ -16,7 +17,7 @@ export class UsersService {
 
 
   get() {
-    return this.http.get<User[]>(this.USERS_URL).pipe(tap(entities => {
+    return this.http.get<User[]>(this.USERS_URL + this.USERS_URL_QUERY).pipe(tap(entities => {
       this.usersStore.set(entities)
     }))
   }
