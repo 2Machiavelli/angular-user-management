@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UsersService } from "../store/users/users.service"
 
-export interface UserInfo {
+interface userInfo {
   title: string
   value: any
 }
@@ -13,9 +13,8 @@ export interface UserInfo {
   styleUrls: ["./user.component.sass"]
 })
 export class UserComponent implements OnInit {
-  UUID: any
   user: any = {}
-  userInfo: any
+  userInfo!: userInfo[]
   displayedColumns: string[] = ["title", "value"]
 
   constructor(
@@ -24,12 +23,9 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.activatedRoute.params.subscribe(params => {
-      this.UUID = params.id
+      this.setUser(params.id)
     })
-
-    this.setUser(this.UUID)
   }
 
   /**
@@ -40,25 +36,32 @@ export class UserComponent implements OnInit {
 
   private setUser(id: string): void {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+    
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe((users: any) => {
         this.user = users.results.filter((user: any) => user.login.uuid === id)[0]
+
+        this.setUserInfo(this.user)
       })
 
     } else {
       const store = JSON.parse(akitaLocalStore)
 
       this.user = store.users.entities.results.filter((user: any) => user.login.uuid === id)[0]
-    }
 
+      this.setUserInfo(this.user)
+    }
+  }
+
+  private setUserInfo(user: any): void {
     this.userInfo = [
-      {title: "Email", value: this.user.email},
-      {title: "Phone", value: this.user.phone},
-      {title: "Phone", value: this.user.phone},
-      {title: "Username", value: this.user.login.username},
-      {title: "Gender", value: this.user.gender},
-      {title: "Age", value: this.user.dob.age},
+      {title: "Email", value: user.email},
+      {title: "Phone", value: user.phone},
+      {title: "Phone", value: user.phone},
+      {title: "Username", value: user.login.username},
+      {title: "Gender", value: user.gender},
+      {title: "Age", value: user.dob.age},
       {title: "Rating", value: 0},
     ]
   }
