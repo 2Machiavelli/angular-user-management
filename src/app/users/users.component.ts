@@ -17,9 +17,23 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usersService.get().subscribe((data: any) => {
-      this.users = data.results
-    })
+    this.setUsers()
+  }
+
+  private setUsers(): void {
+    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+    
+    if ( !akitaLocalStore ) {
+
+      this.usersService.get().subscribe((users: any) => {
+        this.users = users.results
+      })
+
+    } else {
+      const store = JSON.parse(akitaLocalStore)
+
+      this.users = store.users.entities.results
+    }
   }
 
   navigateToUser(user: any): void {
