@@ -1,6 +1,7 @@
 <div class="container" >
   <app-table
     [displayedColumns]="displayedColumns"
-    [dataSource]="users"
+    [users]="users"
+    (clickEvent)="navigateToUser($event)"
   ></app-table>
 </div>

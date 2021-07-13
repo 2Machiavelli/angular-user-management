@@ -1,13 +1,20 @@
 <mat-drawer-container 
-  class="app example-container" 
+  class="app__container" 
   autosize
 >
   <mat-drawer 
     #drawer 
-    class="example-sidenav" 
+    class="drawer" 
     mode="side"
   >
-    <p> Auto-resizing sidenav </p>
+    <button 
+      mat-button 
+      class="drawer__menu-button"
+      routerLink="/users"
+    >
+      <mat-icon>people</mat-icon>
+      <span>Users</span>
+    </button>
   </mat-drawer>
 
   <mat-toolbar
@@ -17,7 +24,7 @@
       type="button" 
       mat-button 
       (click)="drawer.toggle()"
-      class="menu__open-btn"
+      class="app__menu-btn"
     >
       <mat-icon> menu </mat-icon>
     </button>

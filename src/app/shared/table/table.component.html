@@ -1,7 +1,7 @@
 <table 
   mat-table 
-  [dataSource]="dataSource" 
-  class="mat-elevation-z8 demo-table"
+  [dataSource]="users" 
+  class="users-table mat-elevation-z8 demo-table"
 >
 
   <ng-container matColumnDef="photo">
@@ -10,7 +10,7 @@
       *matHeaderCellDef
     > Photo </th>
     <td 
-      class="table__photo" 
+      class="users-table__photo" 
       mat-cell 
       *matCellDef="let user"
     >
@@ -69,6 +69,6 @@
   <tr 
     mat-row 
     *matRowDef="let row; columns: displayedColumns; let user;" 
-    (click)="openUserCard(user)"
+    (click)="handleClick(user)"
   ></tr>
 </table>
