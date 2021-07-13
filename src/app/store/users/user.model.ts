@@ -60,9 +60,3 @@ export interface User {
     version: number
   }
 }
-
-export function createUser(params: Partial<User>) {
-  return {
-    
-  } as User
-}
