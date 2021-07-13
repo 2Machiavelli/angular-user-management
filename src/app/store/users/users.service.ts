@@ -12,9 +12,7 @@ export class UsersService {
   constructor(
     private usersStore: UsersStore, 
     private http: HttpClient
-  ) {
-
-  }
+  ) {}
 
 
   get() {
