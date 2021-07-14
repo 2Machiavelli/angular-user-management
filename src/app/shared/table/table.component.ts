@@ -1,5 +1,8 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core"
 
+// Models
+import { IUser } from "../../models/user.model"
+
 @Component({
   selector: "app-table",
   templateUrl: "./table.component.html",
@@ -14,7 +17,7 @@ export class TableComponent {
 
   constructor () {}
 
-  handleClick(user: any): void {
+  handleClick(user: IUser): void {
     this.clickEvent.emit(user)
   }
 }

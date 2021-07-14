@@ -39,7 +39,12 @@ import { AkitaNgRouterStoreModule } from "@datorama/akita-ng-router-store"
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AkitaNgRouterStoreModule
   ],
-  providers: [{ provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: "https://jsonplaceholder.typicode.com" }}],
+  providers: [
+    { 
+      provide: NG_ENTITY_SERVICE_CONFIG, 
+      useValue: {}
+    }
+  ],
   bootstrap: [
     AppComponent
   ]

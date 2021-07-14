@@ -1,10 +1,13 @@
 import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
+import { Observable } from "rxjs"
 import { tap } from "rxjs/operators"
-import { User } from "./user.model"
+import { IUser } from "../../models/user.model"
 import { UsersStore } from "./users.store"
 
-@Injectable({ providedIn: "root" })
+@Injectable({
+  providedIn: "root",
+})
 export class UsersService {
 
   readonly USERS_URL: string = "https://randomuser.me/api/"
@@ -16,10 +19,9 @@ export class UsersService {
   ) {}
 
 
-  get() {
-    return this.http.get<User[]>(this.USERS_URL + this.USERS_URL_QUERY).pipe(tap(entities => {
-      this.usersStore.set(entities)
-    }))
+  public get(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.USERS_URL + this.USERS_URL_QUERY)
+      .pipe(tap((data) => this.usersStore.set(data)))
   }
 
 }

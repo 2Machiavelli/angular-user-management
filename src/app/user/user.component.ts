@@ -2,10 +2,9 @@ import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UsersService } from "../store/users/users.service"
 
-interface userInfo {
-  title: string
-  value: any
-}
+// Models
+import { IUserInfo } from "../models/userInfo.model"
+import { IUser } from "../models/user.model"
 
 @Component({
   selector: "app-user",
@@ -13,11 +12,11 @@ interface userInfo {
   styleUrls: ["./user.component.sass"]
 })
 export class UserComponent implements OnInit {
-  user: any = {}
-  userInfo!: userInfo[]
+  user!: IUser
+  userInfo!: IUserInfo[]
   displayedColumns: string[] = ["title", "value"]
 
-  constructor(
+  constructor (
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService
   ) {}
@@ -34,13 +33,13 @@ export class UserComponent implements OnInit {
    * @returns {void}
    */
 
-  private setUser(id: string): void {
+  setUser(id: string): void {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
     
     if ( !akitaLocalStore ) {
 
-      this.usersService.get().subscribe((users: any) => {
-        this.user = users.results.filter((user: any) => user.login.uuid === id)[0]
+      this.usersService.get().subscribe((data: any) => {
+        this.user = data.results.filter((user: IUser) => user.login.uuid === id)[0]
 
         this.setUserInfo(this.user)
       })
@@ -48,13 +47,13 @@ export class UserComponent implements OnInit {
     } else {
       const store = JSON.parse(akitaLocalStore)
 
-      this.user = store.users.entities.results.filter((user: any) => user.login.uuid === id)[0]
+      this.user = store.users.entities.results.filter((user: IUser) => user.login.uuid === id)[0]
 
       this.setUserInfo(this.user)
     }
   }
 
-  private setUserInfo(user: any): void {
+  setUserInfo(user: IUser): void {
     this.userInfo = [
       {title: "Email", value: user.email},
       {title: "Phone", value: user.phone},
