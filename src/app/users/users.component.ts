@@ -2,14 +2,17 @@ import { Component, OnInit } from "@angular/core"
 import { UsersService } from "../store/users/users.service"
 import { Router } from "@angular/router"
 
+// Models
+import { IUser } from "../models/user.model"
+
 @Component({
   selector: "app-users",
   templateUrl: "./users.component.html",
   styleUrls: ["./users.component.sass"]
 })
 export class UsersComponent implements OnInit {
-  displayedColumns: string[] = [ "photo", "name", "email", "phone", "rate" ]
-  users: any = []
+  readonly displayedColumns: string[] = [ "photo", "name", "email", "phone", "rate" ]
+  public users!: IUser[]
   
   constructor (
     private usersService: UsersService,
@@ -17,12 +20,32 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.usersService.get().subscribe((data: any) => {
-      this.users = data.results
-    })
+    this.setUsers()
   }
 
-  navigateToUser(user: any): void {
+  /**
+   * If the storage does not exist then we call api, 
+   * and if it does then we take the users data form localStorage
+   * @returns {void}
+   */
+
+  setUsers(): void {
+    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+    
+    if ( !akitaLocalStore ) {
+
+      this.usersService.get().subscribe((data: any) => {
+        this.users = data.results
+      })
+
+    } else {
+      const store = JSON.parse(akitaLocalStore)
+
+      this.users = store.users.entities.results
+    }
+  }
+
+  navigateToUser(user: IUser): void {
     this.router.navigateByUrl(`users/${user.login.uuid}`)
   }
 }

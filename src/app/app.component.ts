@@ -1,3 +1,4 @@
+import { StickyDirection } from "@angular/cdk/table"
 import { Component } from "@angular/core"
 
 @Component({
@@ -6,5 +7,5 @@ import { Component } from "@angular/core"
   styleUrls: ["./app.component.sass"]
 })
 export class AppComponent {
-  title = "angular-user-management"
+  title: string = "angular-user-management"
 }
