@@ -51,5 +51,6 @@ export interface IUser {
     medium: string,
     thumbnail: string
   },
-  nat: string
+  nat: string,
+  rating: number
 }

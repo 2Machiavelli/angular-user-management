@@ -12,6 +12,35 @@
       {{ user.name.first + " " + user.name.last }}
     </div>
 
+    <div class="user-card__rating">
+      <!-- <div class="user-card__rating-title">
+        Rating
+      </div> -->
+
+      <div class="user-card__rating-status">
+        {{ user.rating}}
+      </div>
+
+      <div class="user-card__rating-btns">
+        <button 
+          mat-mini-fab
+          class="user-card__rating-btn"
+          color="accent"
+          (click)="increaseRating(user.login.uuid)"
+        >
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+        <button 
+          mat-mini-fab
+          class="user-card__rating-btn"
+          color="accent"
+          (click)="decreaseRating(user.login.uuid)"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
     <div class="user-card__info">
 
       <table 

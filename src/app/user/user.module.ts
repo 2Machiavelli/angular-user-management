@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { UserComponent } from "./user.component"
+import { MatIconModule } from "@angular/material/icon"
+import { MatButtonModule } from "@angular/material/button"
+
 
 // Routing
 import { UserRoutingModule } from "./user-routing.module"
@@ -15,7 +18,9 @@ import { MatTableModule } from "@angular/material/table"
   imports: [
     CommonModule,
     MatTableModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MatIconModule,
+    MatButtonModule
   ]
 })
 export class UserModule { }

@@ -32,16 +32,18 @@ export class UsersComponent implements OnInit {
   setUsers(): void {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
     
-    if ( !akitaLocalStore ) {
-
-      this.usersService.get().subscribe((data: any) => {
-        this.users = data.results
-      })
-
-    } else {
+    if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
 
-      this.users = store.users.entities.results
+      this.users = store.users.usersList
+    }
+    
+    if ( !akitaLocalStore ) {
+
+      this.usersService.get().subscribe(() => {
+        return this.setUsers()
+      })
+
     }
   }
 

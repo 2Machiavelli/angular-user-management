@@ -55,18 +55,19 @@
     <th 
       mat-header-cell 
       *matHeaderCellDef
-    > Rate </th>
-    <td 
+    > Rating </th>
+    <td
       mat-cell 
       *matCellDef="let user"
-    > 0 </td>
+    > {{user.rating}} </td>
   </ng-container>
 
   <tr 
     mat-header-row 
     *matHeaderRowDef="displayedColumns"
   ></tr>
-  <tr 
+  <tr
+    [class.bg]="user.rating <= -3"
     mat-row 
     *matRowDef="let row; columns: displayedColumns; let user;" 
     (click)="handleClick(user)"

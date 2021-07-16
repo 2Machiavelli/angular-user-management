@@ -5,6 +5,7 @@ import { UsersService } from "../store/users/users.service"
 // Models
 import { IUserInfo } from "../models/userInfo.model"
 import { IUser } from "../models/user.model"
+import { ThisReceiver } from "@angular/compiler"
 
 @Component({
   selector: "app-user",
@@ -18,7 +19,7 @@ export class UserComponent implements OnInit {
 
   constructor (
     private activatedRoute: ActivatedRoute,
-    private usersService: UsersService
+    private usersService: UsersService,
   ) {}
 
   ngOnInit(): void {
@@ -33,23 +34,23 @@ export class UserComponent implements OnInit {
    * @returns {void}
    */
 
-  setUser(id: string): void {
+  setUser(id: string): any {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+
+    if ( akitaLocalStore ) {
+      const store = JSON.parse(akitaLocalStore)
+
+      this.user = store.users.usersList.filter((user: IUser) => user.login.uuid === id)[0]
+
+      this.setUserInfo(this.user)
+    }
     
     if ( !akitaLocalStore ) {
 
-      this.usersService.get().subscribe((data: any) => {
-        this.user = data.results.filter((user: IUser) => user.login.uuid === id)[0]
-
-        this.setUserInfo(this.user)
+      this.usersService.get().subscribe(() => {
+        return this.setUser(id)
       })
 
-    } else {
-      const store = JSON.parse(akitaLocalStore)
-
-      this.user = store.users.entities.results.filter((user: IUser) => user.login.uuid === id)[0]
-
-      this.setUserInfo(this.user)
     }
   }
 
@@ -60,8 +61,19 @@ export class UserComponent implements OnInit {
       {title: "Phone", value: user.phone},
       {title: "Username", value: user.login.username},
       {title: "Gender", value: user.gender},
-      {title: "Age", value: user.dob.age},
-      {title: "Rating", value: 0},
+      {title: "Age", value: user.dob.age}
     ]
+  }
+
+  async increaseRating(id: string) {
+    await this.usersService.increaseRating(id)
+
+    this.setUser(id)
+  }
+
+  async decreaseRating(id: string) {
+    await this.usersService.decreaseRating(id)
+
+    this.setUser(id)
   }
 }
