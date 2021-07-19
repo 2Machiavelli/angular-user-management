@@ -10,3 +10,4 @@ export class UsersQuery extends Query<UsersState> {
   }
 
 }
+

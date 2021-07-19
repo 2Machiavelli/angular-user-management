@@ -1,0 +1,7 @@
+<div class="leaders__wrap" >
+  <app-table
+    [displayedColumns]="displayedColumns"
+    [users]="leaders"
+    (clickEvent)="navigateToLeader($event)"
+  ></app-table>
+</div>

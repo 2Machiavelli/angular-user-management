@@ -8,13 +8,14 @@ import { IUser } from "../models/user.model"
 import { MatTableDataSource } from "@angular/material/table"
 
 @Component({
-  selector: "app-users",
-  templateUrl: "./users.component.html",
-  styleUrls: ["./users.component.sass"]
+  selector: "app-leaders",
+  templateUrl: "./leaders.component.html",
+  styleUrls: ["./leaders.component.sass"]
 })
-export class UsersComponent implements OnInit {
+export class LeadersComponent implements OnInit {
   readonly displayedColumns: string[] = [ "photo", "full_name", "email", "phone", "rating" ]
-  public users!: MatTableDataSource<IUser>
+  public leaders!: MatTableDataSource<IUser>
+  private users!: IUser[]
   
   constructor (
     private usersService: UsersService,
@@ -37,7 +38,16 @@ export class UsersComponent implements OnInit {
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
 
-      this.users = new MatTableDataSource(store.users.usersList)
+      this.users = store.users.usersList
+
+      this.users = this.users.sort((a: any, b: any) => b.rating - a.rating).filter((item, index) => {
+        if (index <= 4) {
+          return item
+        }
+        return false
+      })
+
+      this.leaders = new MatTableDataSource(this.users)
     }
     
     if ( !akitaLocalStore ) {
@@ -49,7 +59,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  navigateToUser(user: IUser): void {
-    this.router.navigateByUrl(`users/${user.login.uuid}`)
+  navigateToLeader(user: IUser): void {
+    this.router.navigateByUrl(`leaders/${user.login.uuid}`)
   }
 }

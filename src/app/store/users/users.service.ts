@@ -24,7 +24,7 @@ export class UsersService {
       .pipe(tap(({ results }: any) => {
 
         // Add rating to user
-        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0 }))
+        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0, full_name: `${item.name.first}  ${item.name.last}` }))
 
         this.usersStore.update({usersList: usersWithRating})
       }))
@@ -32,9 +32,6 @@ export class UsersService {
   }
 
   increaseRating(id: string): void {
-
-    console.log("+")
-
     this.usersStore.update(({ usersList }: any) => {
 
       const updatedUsersList = usersList.map((user: IUser) => {
@@ -53,9 +50,7 @@ export class UsersService {
   }
 
   decreaseRating(id: string): void {
-
-    console.log("-")
-
+    
     this.usersStore.update(({ usersList }: any) => {
 
       const updatedUsersList = usersList.map((user: IUser) => {
