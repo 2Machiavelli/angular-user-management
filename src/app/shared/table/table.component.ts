@@ -1,7 +1,5 @@
 import { AfterViewInit, ViewChild, Component, Input, Output, EventEmitter } from "@angular/core"
 import { MatSort } from "@angular/material/sort"
-
-// Models
 import { IUser } from "../../models/user.model"
 
 @Component({

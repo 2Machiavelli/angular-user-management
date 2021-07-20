@@ -23,7 +23,7 @@ export class UsersService {
     return this.http.get<IUser[]>(this.USERS_URL + this.USERS_URL_QUERY)
       .pipe(tap(({ results }: any) => {
 
-        // Add rating to user
+        // Add rating and full_name to the API results
         const usersWithRating = results.map((item: any) => ({ ...item, rating: 0, full_name: `${item.name.first}  ${item.name.last}` }))
 
         this.usersStore.update({usersList: usersWithRating})
@@ -50,7 +50,7 @@ export class UsersService {
   }
 
   decreaseRating(id: string): void {
-    
+
     this.usersStore.update(({ usersList }: any) => {
 
       const updatedUsersList = usersList.map((user: IUser) => {

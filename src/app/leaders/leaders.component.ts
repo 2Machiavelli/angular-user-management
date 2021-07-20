@@ -5,6 +5,7 @@ import { Router } from "@angular/router"
 // Models
 import { IUser } from "../models/user.model"
 
+// Material
 import { MatTableDataSource } from "@angular/material/table"
 
 @Component({
@@ -23,7 +24,7 @@ export class LeadersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.setUsers()
+    this.setLeaders()
   }
 
   /**
@@ -32,7 +33,7 @@ export class LeadersComponent implements OnInit {
    * @returns {void}
    */
 
-  setUsers(): void {
+  setLeaders(): void {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
@@ -40,12 +41,14 @@ export class LeadersComponent implements OnInit {
 
       this.users = store.users.usersList
 
-      this.users = this.users.sort((a: any, b: any) => b.rating - a.rating).filter((item, index) => {
-        if (index <= 4) {
-          return item
-        }
-        return false
-      })
+      this.users = this.users
+                    .sort((a: any, b: any) => b.rating - a.rating)
+                    .filter((item, index) => {
+                      if (index <= 4) {
+                        return item
+                      }
+                      return false
+                    })
 
       this.leaders = new MatTableDataSource(this.users)
     }
@@ -53,7 +56,7 @@ export class LeadersComponent implements OnInit {
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setUsers()
+        return this.setLeaders()
       })
 
     }

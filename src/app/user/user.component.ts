@@ -5,7 +5,6 @@ import { UsersService } from "../store/users/users.service"
 // Models
 import { IUserInfo } from "../models/userInfo.model"
 import { IUser } from "../models/user.model"
-import { ThisReceiver } from "@angular/compiler"
 
 @Component({
   selector: "app-user",
