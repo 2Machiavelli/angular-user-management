@@ -26,4 +26,4 @@ import { TableComponent } from "./table/table.component"
     TableComponent
   ]
 })
-export class TableModule { }
+export class SharedModule { }

@@ -6,12 +6,12 @@ import { LeadersComponent } from "./leaders.component"
 import { LeadersRoutingModule } from "./leaders-routing.module"
 
 // Shared
-import { TableModule } from "../shared/shared.module"
+import { SharedModule } from "../shared/shared.module"
 
 @NgModule({
   imports: [
     CommonModule,
-    TableModule,
+    SharedModule,
     LeadersRoutingModule
   ],
   declarations: [
