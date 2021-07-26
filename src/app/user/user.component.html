@@ -1,30 +1,30 @@
-<div class="user-card__wrap">
-  <div class="user-card">
+<div class="user__wrap">
+  <div class="user">
 
-    <div class="user-card__photo">
+    <div class="user__photo">
       <img 
         [src]="user.picture.large" 
         alt="avatar"
       />
     </div>
 
-    <div class="user-card__name">
+    <div class="user__name">
       {{ user.name.first + " " + user.name.last }}
     </div>
 
-    <div class="user-card__rating">
-      <!-- <div class="user-card__rating-title">
+    <div class="user__rating">
+      <!-- <div class="user__rating-title">
         Rating
       </div> -->
 
-      <div class="user-card__rating-status">
+      <div class="user__rating-status">
         {{ user.rating}}
       </div>
 
-      <div class="user-card__rating-btns">
+      <div class="user__rating-btns">
         <button 
           mat-mini-fab
-          class="user-card__rating-btn"
+          class="user__rating-btn"
           color="accent"
           (click)="increaseRating(user.login.uuid)"
         >
@@ -32,7 +32,7 @@
         </button>
         <button 
           mat-mini-fab
-          class="user-card__rating-btn"
+          class="user__rating-btn"
           color="accent"
           (click)="decreaseRating(user.login.uuid)"
         >
@@ -41,12 +41,12 @@
       </div>
     </div>
 
-    <div class="user-card__info">
+    <div class="user__info">
 
       <table 
         mat-table 
         [dataSource]="userInfo" 
-        class="user-card__table"
+        class="user__table"
       >
       
         <ng-container matColumnDef="title">
