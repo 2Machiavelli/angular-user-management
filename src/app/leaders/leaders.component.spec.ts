@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { RouterTestingModule } from '@angular/router/testing'
 import { LeadersComponent } from "./leaders.component"
+import { LeadersModule } from "./leaders.module"
 
 describe("LeadersComponent", () => {
   let component: LeadersComponent
@@ -7,7 +10,11 @@ describe("LeadersComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LeadersComponent ]
+      imports: [ 
+        LeadersModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ]
     })
     .compileComponents()
   })
@@ -15,7 +22,6 @@ describe("LeadersComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LeadersComponent)
     component = fixture.componentInstance
-    fixture.detectChanges()
   })
 
   it("should create", () => {

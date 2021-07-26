@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing"
+import { SharedModule } from "../shared.module"
 import { TableComponent } from "./table.component"
 
 describe("UTableComponent", () => {
@@ -7,7 +8,9 @@ describe("UTableComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TableComponent ]
+      imports: [ 
+        SharedModule
+      ],
     })
     .compileComponents()
   })
@@ -15,7 +18,6 @@ describe("UTableComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TableComponent)
     component = fixture.componentInstance
-    fixture.detectChanges()
   })
 
   it("should create", () => {
