@@ -3,16 +3,16 @@ import { RouterTestingModule } from "@angular/router/testing"
 import { HttpClientTestingModule } from "@angular/common/http/testing"
 import { UserComponent } from "./user.component"
 import { UserModule } from "./user.module"
-import { UsersStore } from "../store/users/users.store"
 import { UsersService } from "../store/users/users.service"
-import { By } from "@angular/platform-browser"
 import { ActivatedRoute } from "@angular/router"
 import { of } from "rxjs"
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core"
 
 describe("UserComponent", () => {
   let component: UserComponent
   let fixture: ComponentFixture<UserComponent>
-  let usersStore: UsersStore
+  let usersService: UsersService
+  let nativeElement: any
   let store: any = {
     AkitaStores: {
       users: {
@@ -127,9 +127,10 @@ describe("UserComponent", () => {
       }
     }
   }
+  
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       providers: [
         UsersService,
         {
@@ -145,37 +146,79 @@ describe("UserComponent", () => {
         UserModule,
         RouterTestingModule,
         HttpClientTestingModule
+      ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
       ]
     })
     .compileComponents()
   })
 
-  beforeEach(async () => {
-    fixture = await TestBed.createComponent(UserComponent)
+  beforeEach(() => {
+    fixture = TestBed.createComponent(UserComponent)
     component = fixture.componentInstance
-    usersStore = TestBed.inject(UsersStore)
+    usersService = TestBed.inject(UsersService)
+    nativeElement = fixture.nativeElement
 
-    spyOn(localStorage, 'getItem').and.callFake((key) => {
+    spyOn(localStorage, "getItem").and.callFake((key) => {
       return JSON.stringify(store[key])
     })
   
     fixture.detectChanges()
   })
-
   
-  it("check user name", () => {
-    const userName = fixture.debugElement.query(By.css(".user__name"))
+  it("should create", () => {
+    expect(component).toBeTruthy()
+  })
 
-    expect(userName.nativeNode.innerText).toBe("brad gibson")
+  it("check user name", () => {
+    const userName = nativeElement.querySelector(".user__name")
+
+    expect(userName.innerText).toBe("brad gibson")
   })
 
   it("check user rating", () => {
-    const userRating = fixture.debugElement.query(By.css(".user__rating-status"))
+    const userRating = nativeElement.querySelector(".user__rating-status")
 
-    expect(userRating.nativeNode.innerText).toBe("3")
+    expect(userRating.innerText).toBe("3")
   })
 
-  it("check user email", () => {
+  it("check user info", () => {
+    // Email
     expect(component.userInfo[0].value).toBe(store.AkitaStores.users.usersList[1].email)
+    // Phone
+    expect(component.userInfo[1].value).toBe(store.AkitaStores.users.usersList[1].phone)
+    // Gender
+    expect(component.userInfo[3].value).toBe(store.AkitaStores.users.usersList[1].gender)
+    // Age
+    expect(component.userInfo[4].value).toBe(store.AkitaStores.users.usersList[1].dob.age)
+  })
+
+
+  it("should increase rating up to 1", () => {
+    const increaseBtn = nativeElement.querySelectorAll(".user__rating-btn")[0]
+    const userRating = nativeElement.querySelector(".user__rating-status")
+
+    spyOn(usersService, "increaseRating").and.callFake(() => userRating.innerText = +userRating.innerText + 1)
+
+    increaseBtn.dispatchEvent(new Event("click"))
+
+    fixture.detectChanges()
+
+    expect(userRating.innerText).toEqual("4")
+  })
+
+
+  it("should decrease rating down to 2", () => {
+    const increaseBtn = nativeElement.querySelectorAll(".user__rating-btn")[1]
+    const userRating = nativeElement.querySelector(".user__rating-status")
+
+    spyOn(usersService, "decreaseRating").and.callFake(() => userRating.innerText = +userRating.innerText - 1)
+
+    increaseBtn.dispatchEvent(new Event("click"))
+
+    fixture.detectChanges()
+
+    expect(userRating.innerText).toEqual("2")
   })
 })

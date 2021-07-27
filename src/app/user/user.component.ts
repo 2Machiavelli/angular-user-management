@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   user!: IUser
   userInfo!: IUserInfo[]
   displayedColumns: string[] = ["title", "value"]
+  UUID!: string
 
   constructor (
     private activatedRoute: ActivatedRoute,
@@ -23,8 +24,10 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.setUser(params.id)
+      this.UUID = params.id
     })
+
+    this.setUser(this.UUID)
   }
 
   /**
@@ -56,7 +59,6 @@ export class UserComponent implements OnInit {
   setUserInfo(user: IUser): void {
     this.userInfo = [
       {title: "Email", value: user.email},
-      {title: "Phone", value: user.phone},
       {title: "Phone", value: user.phone},
       {title: "Username", value: user.login.username},
       {title: "Gender", value: user.gender},
