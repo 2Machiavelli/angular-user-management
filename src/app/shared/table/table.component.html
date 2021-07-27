@@ -87,6 +87,7 @@
   ></tr>
   <tr
     [class.bg]="user.rating <= -3"
+    class="users-table__row"
     mat-row 
     *matRowDef="let row; columns: displayedColumns; let user;" 
     (click)="handleClick(user)"

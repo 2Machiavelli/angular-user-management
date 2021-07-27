@@ -9,8 +9,8 @@ import { UsersStore } from "./users.store"
   providedIn: "root",
 })
 export class UsersService {
-  readonly USERS_URL: string = "https://randomuser.me/api/"
-  readonly USERS_URL_QUERY: string = "?results=15&seed=abc"
+  readonly BASE_URL: string = "https://randomuser.me/api/"
+  readonly BASE_URL_PARAMS: string = "?results=15&seed=abc"
 
   constructor(
     private usersStore: UsersStore, 
@@ -20,7 +20,7 @@ export class UsersService {
 
   public get(): Observable<IUser[]> {
 
-    return this.http.get<IUser[]>(this.USERS_URL + this.USERS_URL_QUERY)
+    return this.http.get<IUser[]>(this.BASE_URL + this.BASE_URL_PARAMS)
       .pipe(tap(({ results }: any) => {
 
         // Add rating and full_name to the API results
