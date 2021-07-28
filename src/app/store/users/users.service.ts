@@ -13,7 +13,7 @@ export class UsersService {
   readonly BASE_URL_PARAMS: string = "?results=15&seed=abc"
 
   constructor(
-    private usersStore: UsersStore, 
+    private usersStore: UsersStore,
     private http: HttpClient
   ) {}
 
@@ -24,7 +24,7 @@ export class UsersService {
       .pipe(tap(({ results }: any) => {
 
         // Add rating and full_name to the API results
-        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0, full_name: `${item.name.first}  ${item.name.last}` }))
+        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0 }))
 
         this.usersStore.update({usersList: usersWithRating})
       }))
@@ -50,6 +50,8 @@ export class UsersService {
   }
 
   decreaseRating(id: string): void {
+
+    console.log(this.usersStore)
 
     this.usersStore.update(({ usersList }: any) => {
 
