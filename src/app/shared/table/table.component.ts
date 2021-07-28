@@ -21,6 +21,10 @@ export class TableComponent implements AfterViewInit {
     this.users.sort = this.sort
   }
 
+  userFullName(user: IUser): string {
+    return `${user.name.first} ${user.name.last}`
+  }
+
   handleClick(user: IUser): void {
     this.clickEvent.emit(user)
   }

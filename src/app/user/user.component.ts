@@ -30,12 +30,15 @@ export class UserComponent implements OnInit {
     this.setUser(this.UUID)
   }
 
+  get userFullName(): string {
+    return `${this.user.name.first} ${this.user.name.last}`
+  }
+
   /**
    * If the storage does not exist then we call api, 
    * and if it does then we take the user data form localStorage
    * @returns {void}
    */
-
   setUser(id: string): any {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
 
