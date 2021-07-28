@@ -3,21 +3,29 @@ import { UsersService } from "./users.service"
 import { IUser } from "../../models/user.model"
 import { HttpClientTestingModule } from "@angular/common/http/testing"
 import { of } from "rxjs"
+import { UsersStore } from "./users.store"
 
 describe("Users Service", () => {
   let usersService: UsersService
   let users: IUser[]
+  let usersStore: UsersStore
 
   beforeEach( () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule
+      ],
+      providers: [
+        UsersService,
       ]
     })
   })
 
   beforeEach(() => {
     usersService = TestBed.inject(UsersService)
+    usersStore = TestBed.inject(UsersStore)
+
+    usersStore.update({ usersList: users })
 
     users = [
       {
@@ -137,5 +145,21 @@ describe("Users Service", () => {
 
       done()
     })
+  })
+
+  it("should increase user rating", () => {
+    const updateEvent = spyOn(usersStore, "update")
+    
+    usersService.increaseRating("155e77ee-ba6d-486f-95ce-0e0c0fb4b919")
+
+    expect(updateEvent).toHaveBeenCalled()
+  })
+
+  it("should decrease user rating", () => {
+    const updateEvent = spyOn(usersStore, "update")
+    
+    usersService.decreaseRating("155e77ee-ba6d-486f-95ce-0e0c0fb4b919")
+
+    expect(updateEvent).toHaveBeenCalled()
   })
 })
