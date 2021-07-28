@@ -44,7 +44,7 @@ export class LeadersComponent implements OnInit {
       this.users = this.users
                     .sort((a: any, b: any) => b.rating - a.rating)
                     .filter((item, index) => {
-                      if (index <= 4) {
+                      if (index <= 4 && item.rating > 0) {
                         return item
                       }
                       return false
