@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Store, StoreConfig } from "@datorama/akita"
-import { IUser } from "../../models/user.model"
+import { IUser } from "../../shared/models/user.model"
 
 export interface UsersState {
   usersList: IUser[]

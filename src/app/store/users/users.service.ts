@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 import { tap } from "rxjs/operators"
-import { IUser } from "../../models/user.model"
+import { IUser } from "../../shared/models/user.model"
 import { UsersStore } from "./users.store"
 
 @Injectable({
@@ -24,7 +24,7 @@ export class UsersService {
       .pipe(tap(({ results }: any) => {
 
         // Add rating and full_name to the API results
-        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0 }))
+        const usersWithRating = results.map((item: IUser) => ({ ...item, rating: 0 }))
 
         this.usersStore.update({usersList: usersWithRating})
       }))

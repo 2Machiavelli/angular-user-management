@@ -3,8 +3,9 @@ import { UsersService } from "../store/users/users.service"
 import { Router } from "@angular/router"
 
 // Models
-import { IUser } from "../models/user.model"
+import { IUser } from "../shared/models/user.model"
 
+// Material
 import { MatTableDataSource } from "@angular/material/table"
 
 @Component({
@@ -32,7 +33,7 @@ export class UsersComponent implements OnInit {
    */
 
   setUsers(): void {
-    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+    const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)

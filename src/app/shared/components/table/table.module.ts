@@ -8,7 +8,7 @@ import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatInputModule } from "@angular/material/input"
 
 // Components
-import { TableComponent } from "./table/table.component"
+import { TableComponent } from "./table.component"
 
 
 @NgModule({
@@ -26,4 +26,4 @@ import { TableComponent } from "./table/table.component"
     TableComponent
   ]
 })
-export class SharedModule { }
+export class TableModule { }

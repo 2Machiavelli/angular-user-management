@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing"
 import { UsersService } from "./users.service"
-import { IUser } from "../../models/user.model"
+import { IUser } from "../../shared/models/user.model"
 import { HttpClientTestingModule } from "@angular/common/http/testing"
 import { of } from "rxjs"
 import { UsersStore } from "./users.store"
