@@ -6,13 +6,10 @@ export interface IUser {
     last: string
   },
   location: {
-    street: {
-      number: number,
-      name: string
-    },
+    street: object | string,
     city: string,
     state: string,
-    postcode: number,
+    postcode: number | string,
     coordinates: {
       latitude: number | string,
       longitude: number | string
@@ -51,5 +48,6 @@ export interface IUser {
     medium: string,
     thumbnail: string
   },
-  nat: string
+  nat: string,
+  rating: number
 }

@@ -1,9 +1,9 @@
-.user-card__wrap
+.user__wrap
   display: grid
   width: 100%
   height: calc( 100vh - 64px )
 
-.user-card
+.user
   box-shadow: 2px 7px 22px 13px rgba(0,0,0,0.15)
   border-radius: 3px
   padding: 20px 40px
@@ -18,22 +18,43 @@
   & img
     border-radius: 2px
 
-.user-card__photo
+.user__photo
   display: grid
   justify-content: start
   align-content: center
   grid-column: 1 / 2
 
-.user-card__name
+.user__name
   display: grid
   justify-content: start
   align-content: center
-  grid-column: 2 / 4
+  grid-column: 2 / 5
+  font-size: 28px
+
+.user__rating
+  display: grid
+  grid-column: 5 / 6
   font-size: 36px
 
-.user-card__info
+.user__rating-status
+  margin-top: 20px
+  justify-self: center
+  align-self: self-start
+
+.user__rating-btns
+  box-sizing: border-box
+  padding: 0 30px
+  display: grid
+  width: 100%
+  justify-self: center
+  align-self: self-end
+  justify-content: space-between
+  align-content: space-around
+  grid-template-columns: 40px 40px
+
+.user__info
   grid-column: 1 / 6
   grid-row: 2 / 3
 
-.user-card__table
+.user__table
   width: 100%

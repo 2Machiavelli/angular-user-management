@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core"
 import { CommonModule } from "@angular/common"
-import { UsersComponent } from "./users.component"
+import { LeadersComponent } from "./leaders.component"
 
 // Routing
-import { UsersRoutingModule } from "./users-routing.module"
+import { LeadersRoutingModule } from "./leaders-routing.module"
 
 // Shared
 import { SharedModule } from "../shared/shared.module"
@@ -12,13 +12,14 @@ import { SharedModule } from "../shared/shared.module"
   imports: [
     CommonModule,
     SharedModule,
-    UsersRoutingModule
+    LeadersRoutingModule
   ],
   declarations: [
-    UsersComponent
+    LeadersComponent
   ],
   exports: [
-    UsersComponent
+    LeadersComponent
   ]
 })
-export class UsersModule { }
+export class LeadersModule { }
+

@@ -9,19 +9,65 @@ import { UsersStore } from "./users.store"
   providedIn: "root",
 })
 export class UsersService {
-
-  readonly USERS_URL: string = "https://randomuser.me/api/"
-  readonly USERS_URL_QUERY: string = "?results=15&seed=abc"
+  readonly BASE_URL: string = "https://randomuser.me/api/"
+  readonly BASE_URL_PARAMS: string = "?results=15&seed=abc"
 
   constructor(
-    private usersStore: UsersStore, 
+    private usersStore: UsersStore,
     private http: HttpClient
   ) {}
 
 
   public get(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(this.USERS_URL + this.USERS_URL_QUERY)
-      .pipe(tap((data) => this.usersStore.set(data)))
+
+    return this.http.get<IUser[]>(this.BASE_URL + this.BASE_URL_PARAMS)
+      .pipe(tap(({ results }: any) => {
+
+        // Add rating and full_name to the API results
+        const usersWithRating = results.map((item: any) => ({ ...item, rating: 0 }))
+
+        this.usersStore.update({usersList: usersWithRating})
+      }))
+
+  }
+
+  increaseRating(id: string): void {
+    this.usersStore.update(({ usersList }: any) => {
+
+      const updatedUsersList = usersList.map((user: IUser) => {
+
+        if ( user.login.uuid === id ) {
+
+          return { ...user, rating: user.rating + 1 }
+        }
+
+        return user
+      })
+
+      return { usersList: updatedUsersList }
+
+    })
+  }
+
+  decreaseRating(id: string): void {
+
+    console.log(this.usersStore)
+
+    this.usersStore.update(({ usersList }: any) => {
+
+      const updatedUsersList = usersList.map((user: IUser) => {
+
+        if ( user.login.uuid === id ) {
+
+          return { ...user, rating: user.rating - 1 }
+        }
+
+        return user
+      })
+
+      return { usersList: updatedUsersList }
+
+    })
   }
 
 }

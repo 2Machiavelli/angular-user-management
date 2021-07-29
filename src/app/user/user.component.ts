@@ -15,16 +15,23 @@ export class UserComponent implements OnInit {
   user!: IUser
   userInfo!: IUserInfo[]
   displayedColumns: string[] = ["title", "value"]
+  UUID!: string
 
   constructor (
     private activatedRoute: ActivatedRoute,
-    private usersService: UsersService
+    private usersService: UsersService,
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.setUser(params.id)
+      this.UUID = params.id
     })
+
+    this.setUser(this.UUID)
+  }
+
+  get userFullName(): string {
+    return `${this.user.name.first} ${this.user.name.last}`
   }
 
   /**
@@ -32,24 +39,23 @@ export class UserComponent implements OnInit {
    * and if it does then we take the user data form localStorage
    * @returns {void}
    */
-
-  setUser(id: string): void {
+  setUser(id: string): any {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+
+    if ( akitaLocalStore ) {
+      const store = JSON.parse(akitaLocalStore)
+
+      this.user = store.users.usersList.filter((user: IUser) => user.login.uuid === id)[0]
+
+      this.setUserInfo(this.user)
+    }
     
     if ( !akitaLocalStore ) {
 
-      this.usersService.get().subscribe((data: any) => {
-        this.user = data.results.filter((user: IUser) => user.login.uuid === id)[0]
-
-        this.setUserInfo(this.user)
+      this.usersService.get().subscribe(() => {
+        return this.setUser(id)
       })
 
-    } else {
-      const store = JSON.parse(akitaLocalStore)
-
-      this.user = store.users.entities.results.filter((user: IUser) => user.login.uuid === id)[0]
-
-      this.setUserInfo(this.user)
     }
   }
 
@@ -57,11 +63,21 @@ export class UserComponent implements OnInit {
     this.userInfo = [
       {title: "Email", value: user.email},
       {title: "Phone", value: user.phone},
-      {title: "Phone", value: user.phone},
       {title: "Username", value: user.login.username},
       {title: "Gender", value: user.gender},
-      {title: "Age", value: user.dob.age},
-      {title: "Rating", value: 0},
+      {title: "Age", value: user.dob.age}
     ]
+  }
+
+  async increaseRating(id: string) {
+    await this.usersService.increaseRating(id)
+
+    this.setUser(id)
+  }
+
+  async decreaseRating(id: string) {
+    await this.usersService.decreaseRating(id)
+
+    this.setUser(id)
   }
 }

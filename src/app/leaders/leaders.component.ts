@@ -5,16 +5,18 @@ import { Router } from "@angular/router"
 // Models
 import { IUser } from "../models/user.model"
 
+// Material
 import { MatTableDataSource } from "@angular/material/table"
 
 @Component({
-  selector: "app-users",
-  templateUrl: "./users.component.html",
-  styleUrls: ["./users.component.sass"]
+  selector: "app-leaders",
+  templateUrl: "./leaders.component.html",
+  styleUrls: ["./leaders.component.sass"]
 })
-export class UsersComponent implements OnInit {
+export class LeadersComponent implements OnInit {
   readonly displayedColumns: string[] = [ "photo", "full_name", "email", "phone", "rating" ]
-  public users!: MatTableDataSource<IUser>
+  public leaders!: MatTableDataSource<IUser>
+  private users!: IUser[]
   
   constructor (
     private usersService: UsersService,
@@ -22,7 +24,7 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.setUsers()
+    this.setLeaders()
   }
 
   /**
@@ -31,25 +33,36 @@ export class UsersComponent implements OnInit {
    * @returns {void}
    */
 
-  setUsers(): void {
+  setLeaders(): void {
     const akitaLocalStore: any = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
 
-      this.users = new MatTableDataSource(store.users.usersList)
+      this.users = store.users.usersList
+
+      this.users = this.users
+                    .sort((a: any, b: any) => b.rating - a.rating)
+                    .filter((item, index) => {
+                      if (index <= 4 && item.rating > 0) {
+                        return item
+                      }
+                      return false
+                    })
+
+      this.leaders = new MatTableDataSource(this.users)
     }
     
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setUsers()
+        return this.setLeaders()
       })
 
     }
   }
 
-  navigateToUser(user: IUser): void {
-    this.router.navigateByUrl(`users/${user.login.uuid}`)
+  navigateToLeader(user: IUser): void {
+    this.router.navigateByUrl(`leaders/${user.login.uuid}`)
   }
 }

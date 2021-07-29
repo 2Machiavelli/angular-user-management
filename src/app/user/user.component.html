@@ -1,23 +1,47 @@
-<div class="user-card__wrap">
-  <div class="user-card">
-
-    <div class="user-card__photo">
+<div class="user__wrap">
+  <div class="user">
+    <div class="user__photo">
       <img 
         [src]="user.picture.large" 
         alt="avatar"
       />
     </div>
 
-    <div class="user-card__name">
-      {{ user.name.first + " " + user.name.last }}
+    <div class="user__name">
+      {{ userFullName }}
     </div>
 
-    <div class="user-card__info">
+    <div class="user__rating">
+      <div class="user__rating-status">
+        {{ user.rating }}
+      </div>
 
+      <div class="user__rating-btns">
+        <button 
+          mat-mini-fab
+          class="user__rating-btn"
+          color="accent"
+          (click)="increaseRating(user.login.uuid)"
+        >
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+
+        <button 
+          mat-mini-fab
+          class="user__rating-btn"
+          color="accent"
+          (click)="decreaseRating(user.login.uuid)"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="user__info">
       <table 
         mat-table 
         [dataSource]="userInfo" 
-        class="user-card__table"
+        class="user__table"
       >
       
         <ng-container matColumnDef="title">
@@ -31,7 +55,7 @@
           <td 
             mat-cell 
             *matCellDef="let user"
-          > {{ user.value}} </td>
+          > {{ user.value }} </td>
         </ng-container>
 
         <tr 
@@ -39,8 +63,6 @@
           *matRowDef="let row; columns: displayedColumns; let user;"
         ></tr>
       </table>
-
     </div>
-    
   </div>
 </div>

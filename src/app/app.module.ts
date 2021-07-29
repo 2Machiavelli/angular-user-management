@@ -13,6 +13,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 
 // Pages
+import { LeadersModule } from "./leaders/leaders.module"
 import { UsersModule } from "./users/users.module"
 import { UserModule } from "./user/user.module"
 
@@ -34,6 +35,7 @@ import { AkitaNgRouterStoreModule } from "@datorama/akita-ng-router-store"
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    LeadersModule,
     UsersModule,
     UserModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
