@@ -21,12 +21,7 @@ export class LeadersComponent implements OnInit {
   constructor (
     private usersService: UsersService,
     private router: Router
-  ) {
-
-    this.users = []
-    this.leaders = new MatTableDataSource()
-
-  }
+  ) {}
 
   ngOnInit(): void {
     this.setLeaders()
@@ -38,7 +33,7 @@ export class LeadersComponent implements OnInit {
    * @returns {void}
    */
 
-  setLeaders(): void | boolean {
+  setLeaders(): void | boolean  {
     const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {

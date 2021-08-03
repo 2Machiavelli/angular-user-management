@@ -12,10 +12,10 @@ import { IUser } from "../shared/models/user.model"
   styleUrls: ["./user.component.sass"]
 })
 export class UserComponent implements OnInit {
-  user!: IUser
-  userInfo!: IUserInfo[]
+  user: IUser
+  userInfo: IUserInfo[]
   displayedColumns: string[] = ["title", "value"]
-  UUID!: string
+  UUID: string
 
   constructor (
     private activatedRoute: ActivatedRoute,

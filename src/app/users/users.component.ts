@@ -15,7 +15,7 @@ import { MatTableDataSource } from "@angular/material/table"
 })
 export class UsersComponent implements OnInit {
   readonly displayedColumns: string[] = [ "photo", "full_name", "email", "phone", "rating" ]
-  public users!: MatTableDataSource<IUser>
+  public users: MatTableDataSource<IUser>
   
   constructor (
     private usersService: UsersService,
@@ -32,7 +32,7 @@ export class UsersComponent implements OnInit {
    * @returns {void}
    */
 
-  setUsers(): void {
+  setUsers(): void | boolean {
     const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
@@ -44,7 +44,8 @@ export class UsersComponent implements OnInit {
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setUsers()
+        this.setUsers()
+        return true
       })
 
     }
