@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { UsersService } from "../store/users/users.service"
 import { Router } from "@angular/router"
+import { Title } from "@angular/platform-browser"
 
 // Models
 import { IUser } from "../shared/models/user.model"
@@ -19,10 +20,13 @@ export class UsersComponent implements OnInit {
   
   constructor (
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle("AUM | Users")
+
     this.setUsers()
   }
 

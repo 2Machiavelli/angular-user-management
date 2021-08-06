@@ -49,5 +49,6 @@ export interface IUser {
     thumbnail: string
   },
   nat: string,
-  rating: number
+  rating: number,
+  full_name: string
 }

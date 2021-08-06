@@ -27,7 +27,7 @@ export class UsersService {
       .pipe(tap((data: IUsersApiData) => {
 
         // Add rating and full_name to the API results
-        const usersWithRating = data.results.map((item: IUser) => ({ ...item, rating: 0 }))
+        const usersWithRating = data.results.map((item: any) => ({ ...item, rating: 0, full_name: `${item.name.first}  ${item.name.last}` }))
 
         this.usersStore.update({usersList: usersWithRating})
       }))

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UsersService } from "../store/users/users.service"
+import { Title } from "@angular/platform-browser"
 
 // Models
 import { IUserInfo } from "../shared/models/userInfo.model"
@@ -20,6 +21,7 @@ export class UserComponent implements OnInit {
   constructor (
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,9 @@ export class UserComponent implements OnInit {
       const store = JSON.parse(akitaLocalStore)
 
       this.user = store.users.usersList.filter((user: IUser) => user.login.uuid === id)[0]
+
+      // Set title of this page with the name of the user
+      this.titleService.setTitle(`AUM | User: ${this.user.full_name}`)
 
       this.setUserInfo(this.user)
     }
