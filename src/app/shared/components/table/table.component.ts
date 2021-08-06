@@ -2,6 +2,7 @@ import { AfterViewInit, ViewChild, Component, Input, Output, EventEmitter } from
 import { MatSort } from "@angular/material/sort"
 import { IUser } from "../../models/user.model"
 import { MatTableDataSource } from "@angular/material/table"
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: "app-table",
@@ -14,16 +15,14 @@ export class TableComponent implements AfterViewInit {
 
   @Output() clickEvent = new EventEmitter()
 
+  @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
   constructor () {}
 
   ngAfterViewInit() {
+    this.users.paginator = this.paginator
     this.users.sort = this.sort
-  }
-
-  userFullName(user: IUser): string {
-    return `${user.name.first} ${user.name.last}`
   }
 
   handleClick(user: IUser): void {
@@ -33,6 +32,10 @@ export class TableComponent implements AfterViewInit {
   applyFilter(event: Event): void {
     const filterValue: string = (event.target as HTMLInputElement).value
     this.users.filter = filterValue.trim().toLowerCase()
+
+    if (this.users.paginator) {
+      this.users.paginator.firstPage();
+    }
   }
 }
 

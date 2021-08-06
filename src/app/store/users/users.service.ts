@@ -13,7 +13,7 @@ import { IUsersApiData } from "../../shared/models/usersApiData.model"
 })
 export class UsersService {
   readonly BASE_URL: string = "https://randomuser.me/api/"
-  readonly BASE_URL_PARAMS: string = "?results=15&seed=abc"
+  readonly BASE_URL_PARAMS: string = "?results=100&seed=abc"
 
   constructor(
     private usersStore: UsersStore,
