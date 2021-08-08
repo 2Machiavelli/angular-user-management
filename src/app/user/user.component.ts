@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
       this.user = store.users.usersList.filter((user: IUser) => user.login.uuid === id)[0]
 
       // Set title of this page with the name of the user
-      this.titleService.setTitle(`AUM | User: ${this.user.full_name}`)
+      this.titleService.setTitle(`AUM | ${this.user.full_name}`)
 
       this.setUserInfo(this.user)
     }
