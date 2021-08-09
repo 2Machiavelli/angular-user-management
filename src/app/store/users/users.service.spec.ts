@@ -1,9 +1,10 @@
 import { TestBed } from "@angular/core/testing"
 import { UsersService } from "./users.service"
-import { IUser } from "../../models/user.model"
+import { IUser } from "../../shared/models/user.model"
 import { HttpClientTestingModule } from "@angular/common/http/testing"
 import { of } from "rxjs"
 import { UsersStore } from "./users.store"
+import { IUsersApiData } from "src/app/shared/models/usersApiData.model"
 
 describe("Users Service", () => {
   let usersService: UsersService
@@ -138,10 +139,10 @@ describe("Users Service", () => {
   })
 
   it("should return users", (done: DoneFn) => {
-    spyOn(usersService, "get").and.callFake(() => of(users))
+    spyOn(usersService, "get").and.callFake(() => of({results: users, info: {}}))
 
-    usersService.get().subscribe( (data: IUser[]) => {
-      expect(data).toEqual(users)
+    usersService.get().subscribe( (data: IUsersApiData) => {
+      expect(data.results).toEqual(users)
 
       done()
     })

@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core"
 import { UsersService } from "../store/users/users.service"
 import { Router } from "@angular/router"
+import { Title } from "@angular/platform-browser"
 
 // Models
-import { IUser } from "../models/user.model"
+import { IUser } from "../shared/models/user.model"
 
+// Material
 import { MatTableDataSource } from "@angular/material/table"
 
 @Component({
@@ -14,14 +16,17 @@ import { MatTableDataSource } from "@angular/material/table"
 })
 export class UsersComponent implements OnInit {
   readonly displayedColumns: string[] = [ "photo", "full_name", "email", "phone", "rating" ]
-  public users!: MatTableDataSource<IUser>
+  public users: MatTableDataSource<IUser>
   
   constructor (
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle("AUM | Users")
+
     this.setUsers()
   }
 
@@ -31,8 +36,8 @@ export class UsersComponent implements OnInit {
    * @returns {void}
    */
 
-  setUsers(): void {
-    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+  setUsers(): void | boolean {
+    const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
@@ -43,7 +48,8 @@ export class UsersComponent implements OnInit {
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setUsers()
+        this.setUsers()
+        return true
       })
 
     }

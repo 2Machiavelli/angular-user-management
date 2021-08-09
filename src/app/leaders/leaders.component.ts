@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core"
 import { UsersService } from "../store/users/users.service"
 import { Router } from "@angular/router"
+import { Title } from "@angular/platform-browser"
 
 // Models
-import { IUser } from "../models/user.model"
+import { IUser } from "../shared/models/user.model"
 
 // Material
 import { MatTableDataSource } from "@angular/material/table"
@@ -15,15 +16,18 @@ import { MatTableDataSource } from "@angular/material/table"
 })
 export class LeadersComponent implements OnInit {
   readonly displayedColumns: string[] = [ "photo", "full_name", "email", "phone", "rating" ]
-  public leaders!: MatTableDataSource<IUser>
-  private users!: IUser[]
+  public leaders: MatTableDataSource<IUser>
+  private users: IUser[]
   
   constructor (
     private usersService: UsersService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle("AUM | Leaders")
+
     this.setLeaders()
   }
 
@@ -33,8 +37,8 @@ export class LeadersComponent implements OnInit {
    * @returns {void}
    */
 
-  setLeaders(): void {
-    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+  setLeaders(): void | boolean  {
+    const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
     
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
@@ -42,8 +46,8 @@ export class LeadersComponent implements OnInit {
       this.users = store.users.usersList
 
       this.users = this.users
-                    .sort((a: any, b: any) => b.rating - a.rating)
-                    .filter((item, index) => {
+                    .sort((a: IUser, b: IUser) => b.rating - a.rating)
+                    .filter((item: IUser, index: number) => {
                       if (index <= 4 && item.rating > 0) {
                         return item
                       }
@@ -56,7 +60,8 @@ export class LeadersComponent implements OnInit {
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setLeaders()
+        this.setLeaders()
+        return true
       })
 
     }

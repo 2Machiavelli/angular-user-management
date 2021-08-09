@@ -6,9 +6,10 @@ import { MatTableModule } from "@angular/material/table"
 import { MatSortModule } from "@angular/material/sort"
 import { MatFormFieldModule } from "@angular/material/form-field"
 import { MatInputModule } from "@angular/material/input"
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 // Components
-import { TableComponent } from "./table/table.component"
+import { TableComponent } from "./table.component"
 
 
 @NgModule({
@@ -20,10 +21,11 @@ import { TableComponent } from "./table/table.component"
     MatTableModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ],
   exports: [
     TableComponent
   ]
 })
-export class SharedModule { }
+export class TableModule { }

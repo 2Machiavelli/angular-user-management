@@ -6,12 +6,12 @@ import { UsersComponent } from "./users.component"
 import { UsersRoutingModule } from "./users-routing.module"
 
 // Shared
-import { SharedModule } from "../shared/shared.module"
+import { TableModule } from "../shared/components/table/table.module"
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
+    TableModule,
     UsersRoutingModule
   ],
   declarations: [

@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { UsersService } from "../store/users/users.service"
+import { Title } from "@angular/platform-browser"
 
 // Models
-import { IUserInfo } from "../models/userInfo.model"
-import { IUser } from "../models/user.model"
+import { IUserInfo } from "../shared/models/userInfo.model"
+import { IUser } from "../shared/models/user.model"
 
 @Component({
   selector: "app-user",
@@ -12,14 +13,15 @@ import { IUser } from "../models/user.model"
   styleUrls: ["./user.component.sass"]
 })
 export class UserComponent implements OnInit {
-  user!: IUser
-  userInfo!: IUserInfo[]
+  user: IUser
+  userInfo: IUserInfo[]
   displayedColumns: string[] = ["title", "value"]
-  UUID!: string
+  UUID: string
 
   constructor (
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -39,13 +41,16 @@ export class UserComponent implements OnInit {
    * and if it does then we take the user data form localStorage
    * @returns {void}
    */
-  setUser(id: string): any {
-    const akitaLocalStore: any = localStorage.getItem("AkitaStores")
+  setUser(id: string): void | boolean {
+    const akitaLocalStore: string | null = localStorage.getItem("AkitaStores")
 
     if ( akitaLocalStore ) {
       const store = JSON.parse(akitaLocalStore)
 
       this.user = store.users.usersList.filter((user: IUser) => user.login.uuid === id)[0]
+
+      // Set title of this page with the name of the user
+      this.titleService.setTitle(`AUM | ${this.user.full_name}`)
 
       this.setUserInfo(this.user)
     }
@@ -53,7 +58,8 @@ export class UserComponent implements OnInit {
     if ( !akitaLocalStore ) {
 
       this.usersService.get().subscribe(() => {
-        return this.setUser(id)
+        this.setUser(id)
+        return true
       })
 
     }
